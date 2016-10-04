@@ -1,24 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Jorge Mario Tezen 15417
+ * Juan Pablo Cahueque 15396
+ * Hoja de Trabajo 7 
  */
 package hdt7;
 
 import java.util.*;
 import java.util.Scanner;
 
-/**
- *
- * @author JuanPablo
- */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
         //Se le pide al usuario que ingrese la cadena de caracteres
         Scanner teclado = new Scanner(System.in);
         String mensajeUsuario;
@@ -68,8 +60,21 @@ public class Main {
         HuffmanTree huff = new HuffmanTree();
         huff.createTree(inicial);
         //System.out.println(huff.getRoot().getCh()+" "+huff.getRoot().getFreq());
-    }
-   
-    
-    
+        
+        huff.codificar();
+        System.out.println("elemento | frecuencia |   codigo");
+        Iterator itrf= huff.getListaH().iterator();
+        while(itrf.hasNext()){
+            Nodo pivotal = (Nodo)itrf.next();
+            System.out.println(pivotal.getCh() + "           "+ pivotal.getFreq()+ "           "+ pivotal.getCadena());           
+        }
+        
+        System.out.println("Ingrese un codigo en base a la tabla anterior, separando por espacios cada nuevo caracter");
+        
+        
+        
+        
+        
+        
+    } 
 }
