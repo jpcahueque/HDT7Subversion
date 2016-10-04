@@ -1,22 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Jorge Mario Tezen 15417
+ * Juan Pablo Cahueque 15396
+ * Hoja de Trabajo 7 
  */
 package hdt7;
 import java.util.*;
-/**
- *
- * @author JuanPablo
- */
+
 public class HuffmanTree {
     private Nodo root;
-    private ArrayList listaFinal;
+    private ArrayList <Nodo> listaFinal;
     private  ArrayList listaInicial;
+    private ArrayList <Nodo> listaH;
+    private Nodo nodoMinimo;
     
     public HuffmanTree()
     {
-        listaFinal = new ArrayList();
+        listaFinal = new ArrayList<Nodo>();
+        listaH = new ArrayList<Nodo>();
         listaInicial = new ArrayList();
         root = new Nodo();
     }
@@ -31,6 +31,14 @@ public class HuffmanTree {
 
     public void setListaInicial(ArrayList listaInicial) {
         this.listaInicial = listaInicial;
+    }
+    
+        public ArrayList <Nodo> getListaH() {
+        return listaH;
+    }
+    
+    public void setListaH(ArrayList <Nodo> listaH) {
+        this.listaH = listaH;
     }
 
     public Nodo getRoot() {
@@ -50,7 +58,7 @@ public class HuffmanTree {
         root = new Nodo();
         //Se toma a la izquierda del root el primer nodo minimo
         listaInicial = inicial;
-        Nodo nodoMinimo = min(listaInicial);
+        nodoMinimo = min(listaInicial);
         Nodo nodoTemporal;
         //Se remueve de la lista inicial para no volver a contarlo
         listaInicial.remove(nodoMinimo);
@@ -88,6 +96,7 @@ public class HuffmanTree {
             }      
         }
     }
+    
     //Metodo que devuelve el nodo con la frecuencia mas baja y que aparece primero
     public Nodo min(ArrayList inicial){
         //Inicializamos un iterador para recorrer facilmente
@@ -108,5 +117,53 @@ public class HuffmanTree {
         }
         //System.out.println(nodoMinimo.getCh());
         return nodoMinimo;
+    }
+    
+    
+    public void codificar(){
+     
+        int flag1=0;
+        int flag2=0;
+        
+        if (root.getLeft().getCh()!=0){
+            root.getLeft().setCadena("0");
+            listaH.add(root.getLeft());
+        }
+        if (root.getRight().getCh()==0){
+            root.getRight().setCadena("1");
+        }
+        
+        root= root.getRight();
+        
+        while (root.getLeft()!= null && root.getRight()!=null){
+            if( root.getLeft().getCh()!=0){
+                root.getLeft().setCadena(root.getCadena()+"0");
+                listaH.add(root.getLeft());
+                flag1=1;
+            }
+            if(root.getRight().getCh()==0){
+                root.getRight().setCadena(root.getCadena()+"1");
+                flag2=1;
+            }
+            if(root.getRight().getCh()!=0){
+                root.getRight().setCadena(root.getCadena()+"1");
+                listaH.add(root.getRight());
+                flag2=1;
+            }
+            if(flag1==1 && flag2==1){
+                root=root.getRight();
+                flag1=0;
+                flag2=0;
+            }
+        } 
+    }
+    
+    public String decodificar(String codigo){
+        for(int i=0; i<listaH.size(); i++){
+            if (listaH.get(i).getCadena().equals(codigo)){
+                return listaH.get(i).getCh()+" ";
+            }
+        }
+        return "El codigo ingresado no es un caracter valido";
     }
 }
