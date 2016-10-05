@@ -70,10 +70,30 @@ public class Main {
         }
         
         System.out.println("Ingrese un codigo en base a la tabla anterior, separando por espacios cada nuevo caracter");
+        mensajeUsuario = teclado.nextLine();
+        mensajeUsuario.indexOf(" ");
+        String mensajeFinal = "";
+        String letra = " ";
+        String[] arrayDecode = mensajeUsuario.split(" ");
+        boolean codigoValido = true;
+        for (String i: arrayDecode){
+            if (codigoValido){
+                letra = huff.decodificar(i);
+            }
+            if (letra.length()>5){
+                codigoValido = false;
+            }
+            else {
+                mensajeFinal = mensajeFinal.concat(letra);
+            }
+        }
         
-        
-        
-        
+        if (codigoValido){
+            System.out.println(mensajeFinal);
+        }
+        else {
+            System.out.println("El codigo ingresado no es valido");
+        }
         
         
     } 
